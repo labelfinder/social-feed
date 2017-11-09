@@ -300,7 +300,7 @@ if (typeof Object.create !== 'function') {
                     var proceed = function(request_url){
                         Utility.request(request_url, Feed.facebook.utility.getPosts);
                     };
-                    var fields = '?fields=id,from,name,message,created_time,story,description,link';
+                    var fields = '?fields=id,from,name,message,created_time,story,description,link,type';
                        fields += (options.show_media === true)?',picture,object_id':'';
                     var request_url, limit = '&limit=' + options.facebook.limit,
                         query_extention = '&access_token=' + options.facebook.access_token + '&callback=?';
@@ -345,6 +345,10 @@ if (typeof Object.create !== 'function') {
                         }
                         return '<img class="attachment" src="' + image_url + '" />';
                     },
+                    prepareAuthorPicture: function(element) {
+                        var image_url = Feed.facebook.graph + element.from.id + '/picture/?type=large'
+                        return '<img class="attachment" src="' + image_url + '" />';
+                    },
                     getExternalImageURL: function(image_url, parameter) {
                         image_url = decodeURIComponent(image_url).split(parameter + '=')[1];
                         if (image_url.indexOf('fbcdn-sphotos') === -1) {
@@ -373,6 +377,7 @@ if (typeof Object.create !== 'function') {
                         post.author_name = element.from.name;
                         post.name = element.name || "";
                         post.message = (text) ? text : '';
+                        post.type = element.type;
                         post.description = (element.description) ? element.description : '';
                         post.link = (element.link) ? element.link : 'http://facebook.com/' + element.from.id;
                         post.permalink = post.author_link + '/posts/' + post.id.split('_')[1];
@@ -382,6 +387,12 @@ if (typeof Object.create !== 'function') {
                                 var attachment = Feed.facebook.utility.prepareAttachment(element);
                                 if (attachment) {
                                     post.attachment = attachment;
+                                }
+                            }
+                            if (post.author_picture) {
+                                var authorPicture = Feed.facebook.utility.prepareAuthorPicture(element);
+                                if (authorPicture) {
+                                    post.picture = authorPicture;
                                 }
                             }
                         }
