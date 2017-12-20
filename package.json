@@ -2,6 +2,19 @@
     "name": "social-feed",
     "version": "0.1.2",
     "description": "A jQuery plugin that shows a user feed from the most popular social networks", 
+    "main": "index.js",
+    "main": "js/jquery.socialfeed.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/labelfinder/social-feed.git"
+    },
+    "author": "",
+    "bugs": {
+        "url": "https://github.com/labelfinder/social-feed/issues"
+    },
     "bower": {
         "version": "0.1.2", 
         "dependencies": {
@@ -10,5 +23,8 @@
             "codebird-js": "~2.5.0",
             "moment": "~2.8.3"
         }
-    }
+    },
+    "style": "css/jquery.socialfeed.css",
+    "title": "Daneden Toast",
+    "homepage": "https://github.com/labelfinder/social-feed#readme"
 }
